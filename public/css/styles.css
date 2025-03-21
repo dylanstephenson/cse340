@@ -10,7 +10,7 @@
   --header-font: "Roboto", sans-serif;
   --p-font: "Roboto Condensed", sans-serif;
 }
-
+/* Header styles */
 #top-header {
   display: flex;
   justify-content: space-between;
@@ -29,7 +29,6 @@
 nav ul{
   display: flex;
   background: maroon;
-  color: white;
   list-style: none;
   justify-content: space-around;
   text-align: center;
@@ -37,7 +36,21 @@ nav ul{
   padding-bottom:10px;
   font-family: var(--p-font);
 }
+nav a {
+  color: white;
+  text-decoration: none;
+}
 
+nav a:hover {
+  color: yellow;
+  transition: 0.7s;
+}
+
+h2, h3 {
+  font-family: var(--header-font);
+}
+
+/*********** Home page styling **************/
 .hero-box {
   display: grid;
 }
@@ -122,9 +135,82 @@ nav ul{
   text-align: center;
 }
 
+/********* Inventory grid ************/
+h1 {
+  font-family: var(--header-font);
+  padding: 10px 0 0 10px;
+}
+#inv-display {
+ justify-self: center;
+ list-style: none;
+}
+#inv-display a img{
+  width: 250px;
+  border-right: solid 1px black;
+}
+#inv-display h2 {
+  font-family: var(--header-font);
+  font-size: 1.4rem;
+  margin-top: 10px;
+  margin-bottom: 13px;
+  padding: 5px;
+}
+#inv-display span {
+  font-family: var(--p-font);
+  font-size: 1.2rem;
+  padding: 10px;
+}
+.grid-card {
+  border: solid 1px black;
+  width: 251px;
+  height: 290px;
+  text-align: center;
+  margin: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+hr {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+/***************** Error Message ************************/
+.error-message {
+  font-family: var(--p-font);
+  font-size: 1.3rem;
+  padding: 20px;
+  height: 500px;
+}
+
+/************** Vehicle Details Styling ******************/
+#vehicle-header {
+  margin: 15px 0 25px 5px;
+}
+#details-subheader {
+  margin: 10px 0 15px 5px;
+}
+#vehicle-display img {
+  width: 100vw;
+}
+
+#vehicle-details {
+  font-family: var(--p-font);
+  font-size: 1.2rem;
+  list-style: none;
+}
+#vehicle-details li {
+  margin: 0 10px 0px 25px;
+  padding: 10px;
+}
+#vehicle-details li:nth-child(odd) {
+  background-color: lightgoldenrodyellow;
+}
+
 footer{
   padding: 20px;
 }
+
+/********************* Large Screen View ******************************/
 
 @media screen and (min-width: 600px) {
   body {
@@ -174,5 +260,35 @@ footer{
   #upgrades-box {
     grid-column: 1/2;
     grid-row: 1/2;
+  }
+  #inv-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    justify-self: normal;
+  }
+  #vehicle-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  #vehicle-display img {
+    margin: 20px 0 0 20px;
+    grid-column: 1/2;
+    grid-row: 2/4;
+    width: 90%;
+  }
+  #vehicle-header {
+    margin-bottom: 10px;
+  }
+  #details-subheader {
+    grid-column: 2/3;
+    grid-row: 2/3;
+  }
+  #vehicle-details {
+    grid-column: 2/3;
+    grid-row: 3/4;
+  }
+  #vehicle-details li {
+    margin-right: 0px;
+    margin-bottom: 10px;
   }
 }

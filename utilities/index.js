@@ -33,13 +33,13 @@ Util.buildClassificationGrid = async function(data){
         grid = '<ul id="inv-display">'
         data.forEach(vehicle => {
             grid += '<li>'
+            grid += '<div class="grid-card">'
             grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
             + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-            + 'details"><img src="' + vehicle.inv_thumbnail 
+            + 'details"><img src="' + vehicle.inv_image 
             +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-            +' on CSE Motors" /></a>'
-            grid += '<div class="namePrice">'
-            grid += '<hr />'
+            +' on CSE Motors"/></a>'
+            grid += '<hr/>'
             grid += '<h2>'
             grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
             + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
@@ -55,6 +55,24 @@ Util.buildClassificationGrid = async function(data){
         grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
     return grid
+}
+Util.buildInventoryCard = async function(vehicle){
+    let card = ''
+    card += '<div id="vehicle-display">'
+    card += '<h2 id="vehicle-header">' + vehicle.inv_year + ' ' + vehicle.inv_make 
+    + ' ' + vehicle.inv_model + '</h2>'
+    card += '<img src="' + vehicle.inv_image + '" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+    +' on CSE Motors" />'
+    card +=  '<h3 id="details-subheader">'+ vehicle.inv_make + ' '+ vehicle.inv_model 
+    + ' Details </h3>'
+    card += '<ul id="vehicle-details">'
+    card += '<li><strong>Price:</strong> $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) +'</li>'
+    card += '<li><strong>Description:</strong> ' + vehicle.inv_description + '</li>'
+    card += '<li><strong>Color:</strong> ' + vehicle.inv_color + '</li>'
+    card += '<li><strong>Miles:</strong> ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</li>'
+    card += '</ul>'
+    card += '</div>'
+    return card
 }
 
 /* ****************************************
