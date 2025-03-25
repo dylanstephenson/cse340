@@ -209,6 +209,68 @@ hr {
 footer{
   padding: 20px;
 }
+/********************* Login and Register page *****************************/
+#login-box, #register-box {
+  border-radius: 5px;
+  background-color: maroon;
+  padding: 20px;
+  width: 80%;
+  justify-self: center;
+  margin: 25px 0 25px 0;
+}
+
+#account_email, #account_password, #account_firstname, #account_lastname {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+label {
+  font-family: var(--p-font);
+  color: white;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: goldenrod;
+  color: white;
+  font-family: var(--p-font);
+  font-size: 0.9rem;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=submit]:hover {
+  background-color: rgb(187, 140, 22);
+  transition: 0.7s;
+}
+
+input:focus:invalid {
+  background-color: rgb(251, 199, 199);
+}
+
+#login-box p, #login-box a {
+  font-family: var(--p-font);
+  color: white;
+}
+#login-box a:hover {
+  color: yellow;
+}
+
+#register-box span, #register-box p {
+  color: white;
+  padding: 10px;
+}
+#register-box form {
+  border: 1px solid white;
+  padding: 10px;
+}
+
 
 /********************* Large Screen View ******************************/
 

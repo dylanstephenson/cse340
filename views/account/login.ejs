@@ -1,0 +1,12 @@
+<h1 id="login-header"><%- title %></h1>
+<%- messages("notice") %>
+<div id="login-box">
+    <form>
+        <label for="account_email">Email:</label>
+        <input type="email" id="account_email" name="account_email" required>
+        <label for="account_password">Password:</label>
+        <input type="password" id="account_password" name="account_password" required>
+        <input type="submit" value="Login">
+    </form>
+    <p>No account? <a href="/account/register">Sign-up</a></p>
+</div>
