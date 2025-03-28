@@ -1,9 +1,11 @@
 <h1 id="register-header"><%- title %></h1>
-<%- messages("notice") %>
+<%- messages() %>
 <% if (errors) { %>
     <ul class="notice">
    <% errors.array().forEach(error => { %>
+    <% if (error.msg !== "Invalid value") { %> <!-- ✅ Skip generic messages --> 
      <li><%= error.msg %></li>
+     <% } %>
   <%  }) %>
    </ul>
   <% } %>
@@ -11,11 +13,11 @@
     <p><em>ALL FIELDS ARE REQUIRED</em></p>
     <form action="/account/register" method="post">
         <label for="account_firstname">First name</label>
-        <input type="text" id="account_firstname" name="account_firstname" required>
+        <input type="text" id="account_firstname" name="account_firstname" required value="<%= locals.account_firstname %>">
         <label for="account_lastname">Last name</label>
-        <input type="text" id="account_lastname" name="account_lastname" required>
+        <input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.account_lastname %>">
         <label for="account_email">Email</label>
-        <input type="email" id="account_email" name="account_email" required>
+        <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
         <label for="account_password">Password</label>
         <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
         <span><em>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</em></span>

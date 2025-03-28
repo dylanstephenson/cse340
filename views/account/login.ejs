@@ -1,11 +1,20 @@
 <h1 id="login-header"><%- title %></h1>
-<%- messages("notice") %>
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+    <% if (error.msg !== "Invalid value") { %> <!-- ✅ Skip generic messages --> 
+     <li><%= error.msg %></li>
+     <% } %>
+  <%  }) %>
+   </ul>
+  <% } %>
 <div id="login-box">
-    <form>
+    <form id="loginForm" action="/account/login" method="post">
         <label for="account_email">Email:</label>
-        <input type="email" id="account_email" name="account_email" required>
+        <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
         <label for="account_password">Password:</label>
-        <input type="password" id="account_password" name="account_password" required>
+        <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
         <input type="submit" value="Login">
     </form>
     <p>No account? <a href="/account/register">Sign-up</a></p>

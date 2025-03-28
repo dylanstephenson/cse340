@@ -1,0 +1,1 @@
+DELETE FROM classification WHERE classification_name = "{"classification_name":"Space"}"

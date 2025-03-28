@@ -1,0 +1,20 @@
+<h1 id="add-class-header"><%- title %></h1>
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+    <% if (error.msg !== "Invalid value") { %> <!-- ✅ Skip generic messages --> 
+     <li><%= error.msg %></li>
+     <% } %>
+  <%  }) %>
+   </ul>
+  <% } %>
+<div id="classification-form">
+    <p><em>FIELD IS REQUIRED</em></p>
+    <form action="/inv/add-classification" method="post">
+        <label for="classification_name">Classification Name</label>
+        <br><br><span><em>NAME MUST BE ALPHABETIC CHARACTERS ONLY.</em></span><br><br>
+        <input type="text" id="classification_name" name="classification_name" required pattern="^[A-Za-z]\S{4,}$">
+        <input type="submit" id="classification_submit" value="Add Classification">
+    </form>
+</div>

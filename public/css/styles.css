@@ -210,16 +210,18 @@ footer{
   padding: 20px;
 }
 /********************* Login and Register page *****************************/
-#login-box, #register-box {
+#login-box, #register-box, #classification-form, #inventory-form{
   border-radius: 5px;
   background-color: maroon;
-  padding: 20px;
-  width: 80%;
+  padding: 20px 10px 10px 10px;
+  width: 90%;
   justify-self: center;
   margin: 25px 0 25px 0;
 }
 
-#account_email, #account_password, #account_firstname, #account_lastname {
+#account_email, #account_password, #account_firstname, #account_lastname, 
+#classification_name, #classificationList, #inv_make, #inv_model, #inv_description,
+#inv_image, #inv_thumbnail, #inv_price, #inv_year, #inv_miles, #inv_color {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -235,10 +237,10 @@ label {
 
 input[type=submit] {
   width: 100%;
-  background-color: goldenrod;
+  background-color: black;
   color: white;
   font-family: var(--p-font);
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -246,7 +248,7 @@ input[type=submit] {
   cursor: pointer;
 }
 input[type=submit]:hover {
-  background-color: rgb(187, 140, 22);
+  background-color: rgb(78, 77, 77);
   transition: 0.7s;
 }
 
@@ -263,14 +265,44 @@ input:focus:invalid {
 }
 
 #register-box span, #register-box p {
-  color: white;
+  color: rgb(255, 199, 56);
   padding: 10px;
 }
 #register-box form {
-  border: 1px solid white;
+  border: 1px solid black;
   padding: 10px;
 }
 
+/***************** Management Pages ****************************/
+#management-links {
+  padding: 20px;
+  width: 80%;
+  justify-self: center;
+}
+#management-links a {
+  font-family: var(--p-font);
+  font-size: 1.3rem;
+}
+
+#classification-form form, #inventory-form form{
+  border: 0.2px solid black;
+  padding: 10px;
+}
+#classification-form span, #classification-form p, #inventory-form p{
+  margin-bottom: 10px;
+  color: rgb(255, 199, 56);
+}
+#classification-form label {
+  margin-bottom: 5px;
+}
+
+.notice {
+  color: rgb(184, 3, 3);
+  list-style: square;
+  font-family: var(--p-font);
+  padding: 10px;
+  margin-left: 30px;
+}
 
 /********************* Large Screen View ******************************/
 
