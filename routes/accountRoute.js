@@ -7,6 +7,7 @@ const regValidate = require("../utilities/account-validation")
 // router to pull up account login and registration page
 router.get("/login", utilities.handleErrors(accController.buildLogin))
 router.get("/register", utilities.handleErrors(accController.buildRegister))
+router.get("/", utilities.checkLogin, utilities.handleErrors(accController.buildAccountManagement))
 
 // send registration information
 router.post(
@@ -19,9 +20,7 @@ router.post(
     "/login",
     regValidate.LoginRules(),
     regValidate.checkLoginData,
-    (req, res) => {
-        res.status(200).send('login process')
-    }
+    utilities.handleErrors(accController.accountLogin)
     )
 
 module.exports = router;

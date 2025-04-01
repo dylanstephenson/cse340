@@ -12,6 +12,8 @@ router.get("/detail/:inventoryId", invController.buildByInventoryId);
 router.get("/", invController.buildManagement);
 router.get("/add-classification", invController.buildAddClassification);
 router.get("/add-inventory", invController.buildAddInventory)
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get("/edit/:inventory_id", utilities.handleErrors(invController.modifyInventory))
 
 // error handler for invalid routes
 router.use(baseController.handleErrors);
@@ -29,5 +31,12 @@ router.post(
     validate.inventoryRules(),
     validate.checkInventoryData,
     utilities.handleErrors(invController.AddInventory))
+
+// Update inventory
+router.post(
+    '/update/',
+    validate.inventoryRules(),
+    validate.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory))
 
 module.exports = router;

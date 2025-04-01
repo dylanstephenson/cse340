@@ -1,0 +1,12 @@
+<h1 id="login-header"><%- title %></h1>
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+    <% if (error.msg !== "Invalid value") { %> <!-- ✅ Skip generic messages --> 
+     <li><%= error.msg %></li>
+     <% } %>
+  <%  }) %>
+   </ul>
+  <% } %>
+<h2>You're logged in!</h2>
