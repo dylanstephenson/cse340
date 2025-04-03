@@ -210,7 +210,7 @@ footer{
   padding: 20px;
 }
 /********************* Login and Register page *****************************/
-#login-box, #register-box, #classification-form, #inventory-form{
+#login-box, #register-box, #classification-form, #inventory-form, #update-form, #password-form, #manage-inv-box{
   border-radius: 5px;
   background-color: maroon;
   padding: 20px 10px 10px 10px;
@@ -288,7 +288,7 @@ input:focus:invalid {
   border: 0.2px solid black;
   padding: 10px;
 }
-#classification-form span, #classification-form p, #inventory-form p{
+#classification-form span, #classification-form p, #inventory-form p, #password-form span{
   margin-bottom: 10px;
   color: rgb(255, 199, 56);
 }
@@ -303,6 +303,42 @@ input:focus:invalid {
   padding: 10px;
   margin-left: 30px;
 }
+/********************* Account Management ****************/
+#welcome-header {
+  margin: 10px;
+}
+#update-account-header, #inv-manage-header {
+  margin-top: 5px;
+  padding-left: 30px;
+}
+#update-account-link, #inv-manage-link {
+  padding-left: 30px;
+  font-family: var(--p-font);
+}
+#manage-inv-header {
+  margin: 20px 0px 5px 20px;
+}
+#manage-inv-p {
+  padding-left: 20px;
+  font-family: var(--p-font);
+}
+#inventoryDisplay {
+  background-color: white;
+  border-radius: 3px;
+}
+#inventoryDisplay th {
+  text-align: start;
+  border: 1px solid black;
+  padding-left: 5px;
+  font-family: var(--header-font);
+}
+#inventoryDisplay td {
+  padding: 5px 10px 5px 10px;
+  border: 1px solid black;
+  width: 100%;
+  font-family: var(--p-font)
+}
+
 
 /********************* Large Screen View ******************************/
 

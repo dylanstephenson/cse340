@@ -62,25 +62,51 @@ invCont.buildByInventoryId = async function (req, res, next) {
 invCont.buildManagement = async function(req, res, nex) {
   let nav = await utilities.getNav()
   const classificationSelect = await utilities.buildClassificationList()
-  res.render("./inventory/management", {
-    title: "Vehicle Management",
-    nav,
-    classificationSelect,
-    errors: null
-  })
+
+  if (!res.locals.accountData) {
+    req.flash("notice", "You must be logged in to access that page.");
+    return res.redirect("/account/login");
+  }
+
+  const accountType = res.locals.accountData.account_type;
+  if (res.locals.loggedin && accountType !== "Client") {
+    res.render("./inventory/management", {
+      title: "Vehicle Management",
+      nav,
+      classificationSelect,
+      errors: null
+    })
+  } else {
+    req.flash("error", "You do not have access to that page.");
+    return res.redirect("/account/login");
+  }
 }
+  
 
 /**********************************
  * Build Add Classification view
  **********************************/
 invCont.buildAddClassification = async function(req, res, nex) {
   let nav = await utilities.getNav()
-      res.render("./inventory/add-classification", {
-        title: "Add Classification",
-        nav,
-        errors: null
-      })
-    }
+
+  if (!res.locals.accountData) {
+    req.flash("notice", "You must be logged in to access that page.");
+    return res.redirect("/account/login");
+  }
+
+  const accountType = res.locals.accountData.account_type;
+  if (res.locals.loggedin && accountType !== "Client") {
+    res.render("./inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors: null
+    })
+  } else {
+    req.flash("error", "You do not have access to that page.");
+    return res.redirect("/account/login");
+  }
+}
+      
 
 /**********************************
  * Build Add Inventory view
@@ -88,13 +114,26 @@ invCont.buildAddClassification = async function(req, res, nex) {
 invCont.buildAddInventory = async function(req, res, nex) {
   let nav = await utilities.getNav()
   let classificationSelect = await utilities.buildClassificationList()
-      res.render("./inventory/add-inventory", {
-        title: "Add Inventory",
-        nav,
-        classificationSelect,
-        errors: null
-      })
-    }
+
+  if (!res.locals.accountData) {
+    req.flash("notice", "You must be logged in to access that page.");
+    return res.redirect("/account/login");
+  }
+
+  const accountType = res.locals.accountData.account_type;
+  if (res.locals.loggedin && accountType !== "Client") {
+    res.render("./inventory/add-inventory", {
+      title: "Add Inventory",
+      nav,
+      classificationSelect,
+      errors: null
+    })
+  } else {
+    req.flash("error", "You do not have access to that page.");
+    return res.redirect("/account/login");
+  }
+}
+      
 
 invCont.AddClassification = async function(req, res) {
   let nav = await utilities.getNav()

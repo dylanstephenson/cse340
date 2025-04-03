@@ -9,4 +9,12 @@
   <%  }) %>
    </ul>
   <% } %>
-<h2>You're logged in!</h2>
+<h2 id="welcome-header">Welcome <%= accountData.account_firstname %>!</h2>
+
+<h3 id="update-account-header">Update Account Information</h3>
+<p id="update-account-link">Click <a href="/account/update">this link</a> to modify your account information</p>
+
+<% if (loggedin && accountData.account_type !== "Client") { %>
+    <h3 id="inv-manage-header">Inventory Management</h3>
+    <p id="inv-manage-link">Click <a href="/inv/">this link</a> to manage your inventory.</p>
+<% } %>

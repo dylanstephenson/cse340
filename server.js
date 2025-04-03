@@ -50,6 +50,8 @@ app.use(cookieParser())
 // Check JWTToken
 app.use(utilities.checkJWTToken)
 
+// Check for authentication
+
 /* ***********************
  * View Engine and Templates
  *************************/

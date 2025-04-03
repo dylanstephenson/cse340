@@ -39,8 +39,26 @@ accController.buildAccountManagement = async function(req, res, next) {
   })
 }
 
-  accController.registerAccount = async function(req,res) {
-    let nav = await utilities.getNav()
+/* ****************************************
+*  Deliver update view
+* *************************************** */
+accController.buildUpdate = async function(req, res, next) {
+  let nav = await utilities.getNav()
+  const account_id = res.locals.accountData.account_id;
+  const accountData = await accountModel.getAccountById(account_id);
+  res.render("account/update", {
+    title: "Update Account",
+    nav,
+    errors: null,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    account_email: accountData.account_email,
+    account_id: accountData.account_id
+  })
+}
+
+accController.registerAccount = async function(req,res) {
+  let nav = await utilities.getNav()
   const { 
     account_firstname, 
     account_lastname, 
@@ -114,7 +132,7 @@ accController.accountLogin = async function(req, res) {
       } else {
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
-      return res.redirect("/account/")
+      return res.redirect("/account")
     }
     else {
       req.flash("message notice", "Please check your credentials and try again.")
@@ -128,6 +146,95 @@ accController.accountLogin = async function(req, res) {
   } catch (error) {
     throw new Error('Access Forbidden')
   }
+}
+
+accController.updateAccount = async function(req,res) {
+  let nav = await utilities.getNav()
+  const account_id = res.locals.accountData.account_id
+  const { 
+    account_firstname, 
+    account_lastname, 
+    account_email } = req.body
+
+  const regResult = await accountModel.updateAccount(
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_id
+  )
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `${account_firstname}, your account details have been updated.`
+    )
+    res.status(201).render("./account/account-management", {
+      title: "Manage Account",
+      nav,
+      errors: null,
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_id
+    })
+  } else {
+    req.flash("notice", "Sorry, the account update failed.")
+    res.status(501).render("./account/update", {
+      title: "Update Account",
+      nav,
+      errors: null,
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_id
+    })
+  }
+}
+
+accController.updatePassword = async function(req,res) {
+  let nav = await utilities.getNav()
+  const account_id = res.locals.accountData.account_id
+  const { account_password } = req.body
+  // Hash the password before storing
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error processing the password update.')
+    res.status(500).render("./account/update", {
+      title: "Update Account",
+      nav,
+      errors: null,
+    })
+  }
+
+  const regResult = await accountModel.updatePassword(hashedPassword, account_id)
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Success! You have updated your password.`
+    )
+    res.status(201).render("./account/account-management", {
+      title: "Manage Account",
+      nav,
+      errors: null
+    })
+  } else {
+    req.flash("notice", "Sorry, the password change failed.")
+    res.status(501).render("./account/update", {
+      title: "Update Account",
+      nav,
+      errors: null
+    })
+  }
+}
+
+accController.logout = function(req, res) {
+  res.clearCookie("jwt");
+  req.flash("notice", "You have been logged out.");
+  res.redirect("/")
 }
 
   module.exports = accController
