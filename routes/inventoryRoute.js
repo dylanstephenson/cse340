@@ -14,7 +14,9 @@ router.get("/add-classification", invController.buildAddClassification);
 router.get("/add-inventory", invController.buildAddInventory)
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 router.get("/edit/:inventory_id", utilities.handleErrors(invController.modifyInventory))
+router.get("/delete/:inventory_id", utilities.handleErrors(invController.buildDeleteConfirmation))
 
+router.post("/delete", utilities.handleErrors(invController.deleteInventoryItem))
 // error handler for invalid routes
 router.use(baseController.handleErrors);
 
