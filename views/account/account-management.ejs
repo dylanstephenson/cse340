@@ -18,3 +18,7 @@
     <h3 id="inv-manage-header">Inventory Management</h3>
     <p id="inv-manage-link">Click <a href="/inv/">this link</a> to manage your inventory.</p>
 <% } %>
+<% if (loggedin && accountData.account_type === "Admin") { %>
+    <h3 id="admin-header">Administrate Accounts</h3>
+    <p id="admin-link">Click <a href="/account/admin">this link</a> to administrate accounts</p>
+<% } %>

@@ -85,4 +85,56 @@ async function updatePassword(
   }
 }
 
-  module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, updatePassword }
+async function getAllAccounts() {
+  const result = await pool.query("SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account")
+  return result.rows
+}
+
+async function getAccountByAccountId(account_id) {
+  try {
+      const data = await pool.query(
+          `SELECT * FROM public.account WHERE account_id = $1`,
+          [account_id]
+      )
+      return data.rows[0]
+      
+  } catch (error) {
+      console.error("getaccountbyid " + error)
+  }
+}
+
+async function adminUpdateAccount(
+  account_id,
+  account_firstname,
+  account_lastname,
+  account_email,
+  account_type
+) {
+  try {
+    const sql =
+      "UPDATE public.account SET account_firstname = $1, account_lastname = $2, account_email = $3, account_type = $4 WHERE account_id = $5 RETURNING *"
+    const data = await pool.query(sql, [
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_type,
+      account_id,
+    ])
+    return data.rows[0]
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+async function deleteAccount(account_id) {
+  try {
+    const sql =
+      "DELETE FROM public.account WHERE account_id = $1 RETURNING *"
+    const data = await pool.query(sql, [account_id])
+    return data
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+  module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, updatePassword, getAllAccounts, getAccountByAccountId, deleteAccount, adminUpdateAccount }

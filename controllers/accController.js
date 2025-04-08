@@ -39,6 +39,119 @@ accController.buildAccountManagement = async function(req, res, next) {
   })
 }
 
+accController.buildAdmin = async function(req, res, next) {
+  let nav = await utilities.getNav()
+  if (!res.locals.accountData) {
+    req.flash("notice", "You must be logged in to access that page.");
+    return res.redirect("/account/login");
+  }
+
+  const accountType = res.locals.accountData.account_type;
+  if (res.locals.loggedin && accountType === "Admin") {
+    res.render("account/admin", {
+      title: "Administrate Accounts",
+      nav,
+      errors: null
+    })
+  } else {
+    req.flash("error", "You do not have access to that page.");
+    return res.redirect("/account/login");
+  }
+}
+
+accController.buildDeleteConfirmation = async function(req, res, next) {
+  const account_id = parseInt(req.params.account_id);
+  if (isNaN(account_id)) {
+    console.error("Invalid account_id");
+    return res.redirect("account/admin");
+  }
+    let nav = await utilities.getNav()
+    const account = await accountModel.getAccountByAccountId(account_id)
+    const accountName = `${account.account_firstname} ${account.account_lastname}`    
+    res.render("account/admin-delete", {
+          title: "Delete " + accountName,
+          nav,
+          errors: null,
+          account_id: account.account_id,
+          account_firstname: account.account_firstname,
+          account_lastname: account.account_lastname,
+          account_email: account.account_email,
+          account_type: account.account_type
+        })
+      }
+accController.buildAdminUpdate = async function(req, res, next) {
+  const account_id = parseInt(req.params.account_id)
+  let nav = await utilities.getNav()
+  const accountData = await accountModel.getAccountByAccountId(account_id)
+  const accountName = `${accountData.account_firstname} ${accountData.account_lastname}`    
+  res.render("account/admin-update", {
+        title: "Edit " + accountName,
+        nav,
+        errors: null,
+        account_id: accountData.account_id,
+        account_firstname: accountData.account_firstname,
+        account_lastname: accountData.account_lastname,
+        account_email: accountData.account_email,
+        account_type: accountData.account_type
+      })
+    }
+
+accController.getAllAccounts = async (req,res,next) => {
+  try {
+    const accounts = await accountModel.getAllAccounts()
+    res.json(accounts)
+  } catch (err) {
+    console.error("Error retrieving accounts:", err)
+    res.status(500).json({ error: "Server error while fetching accounts" })
+  }
+}
+
+accController.deleteAccount = async function(req, res) {
+    let nav = await utilities.getNav()
+    const account_id = req.body.account_id
+    
+    const deleteResult = await accountModel.deleteAccount(account_id)
+    if (deleteResult) {
+      req.flash("notice", `The account was successfully deleted.`)
+      req.session.save(() => {
+        res.redirect("/account/admin")
+      })
+    } else {
+      req.flash("notice", "Sorry, the delete failed.")
+      req.session.save(() => {res.status(501).redirect(`/account/delete/${account_id}`)})
+  }
+}
+
+accController.adminUpdateAccount = async function(req, res) {
+      let nav = await utilities.getNav()
+      const {
+        account_id,
+        account_firstname,
+        account_lastname,
+        account_email,
+        account_type
+      } = req.body
+      const updateResult = await accountModel.adminUpdateAccount(account_id, account_firstname, account_lastname, account_email, account_type)
+      if (updateResult) {
+        const accountName = updateResult.account_firstname+ " " + updateResult.account_lastname
+        req.flash("notice", `${accountName} was successfully updated.`)
+        res.redirect("/account/admin")
+      } else {
+        const accountName = `${account_firstname} ${account_lastname}`
+        req.flash("notice", "Sorry, the insert failed.")
+        res.status(501).render("account/admin-update", {
+        title: "Edit " + accountName,
+        nav,
+        errors: null,
+        account_id,
+        account_firstname,
+        account_lastname,
+        account_email,
+        account_type
+        })
+    }
+  }
+
 /* ****************************************
 *  Deliver update view
 * *************************************** */

@@ -10,7 +10,13 @@ router.get("/register", utilities.handleErrors(accController.buildRegister))
 router.get("/", utilities.checkLogin, utilities.handleErrors(accController.buildAccountManagement))
 router.get("/update", utilities.handleErrors(accController.buildUpdate))
 router.get("/logout", utilities.handleErrors(accController.logout))
+router.get("/admin", utilities.handleErrors(accController.buildAdmin))
+router.get("/getAccounts", utilities.handleErrors(accController.getAllAccounts))
+router.get("/delete/:account_id", utilities.handleErrors(accController.buildDeleteConfirmation))
+router.get("/admin-update/:account_id", utilities.handleErrors(accController.buildAdminUpdate))
 
+
+router.post("/delete", utilities.handleErrors(accController.deleteAccount))
 // send registration information
 router.post(
     '/register',
@@ -19,7 +25,7 @@ router.post(
     utilities.handleErrors(accController.registerAccount))
 
 router.post(
-    "/login",
+    '/login',
     regValidate.LoginRules(),
     regValidate.checkLoginData,
     utilities.handleErrors(accController.accountLogin)
@@ -37,6 +43,11 @@ router.post(
     regValidate.passwordRules(),
     regValidate.checkPasswordData,
     utilities.handleErrors(accController.updatePassword)
+)
+
+router.post(
+    '/admin-update',
+    utilities.handleErrors(accController.adminUpdateAccount)
 )
 
 module.exports = router;

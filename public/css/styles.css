@@ -210,7 +210,8 @@ footer{
   padding: 20px;
 }
 /********************* Login and Register page *****************************/
-#login-box, #register-box, #classification-form, #inventory-form, #update-form, #password-form, #manage-inv-box{
+#login-box, #register-box, #classification-form, #inventory-form, #update-form, 
+#password-form, #manage-inv-box, #admin-delete-form, #admin-update-form {
   border-radius: 5px;
   background-color: maroon;
   padding: 20px 10px 10px 10px;
@@ -219,7 +220,7 @@ footer{
   margin: 25px 0 25px 0;
 }
 
-#account_email, #account_password, #account_firstname, #account_lastname, 
+#account_email, #account_password, #account_firstname, #account_lastname, #account_type,
 #classification_name, #classificationList, #inv_make, #inv_model, #inv_description,
 #inv_image, #inv_thumbnail, #inv_price, #inv_year, #inv_miles, #inv_color {
   width: 100%;
@@ -264,7 +265,7 @@ input:focus:invalid {
   color: yellow;
 }
 
-#register-box span, #register-box p {
+#register-box span, #register-box p, #admin-delete-message {
   color: rgb(255, 199, 56);
   padding: 10px;
 }
@@ -307,11 +308,11 @@ input:focus:invalid {
 #welcome-header {
   margin: 10px;
 }
-#update-account-header, #inv-manage-header {
+#update-account-header, #inv-manage-header, #admin-header {
   margin-top: 5px;
   padding-left: 30px;
 }
-#update-account-link, #inv-manage-link {
+#update-account-link, #inv-manage-link, #admin-link {
   padding-left: 30px;
   font-family: var(--p-font);
 }
@@ -337,6 +338,49 @@ input:focus:invalid {
   border: 1px solid black;
   width: 100%;
   font-family: var(--p-font)
+}
+
+/* Administrate accounts table */
+#accountDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-family: var(--p-font);
+}
+
+#accountDisplay th, #accountDisplay td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+#accountDisplay th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  font-family: var(--header-font);
+}
+
+#accountDisplay tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#accountDisplay tr:hover {
+  background-color: #eef;
+}
+
+#accountDisplay td a {
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#accountDisplay td a:hover {
+  opacity: 0.85;
 }
 
 

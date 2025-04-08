@@ -1,0 +1,29 @@
+<h1 id="admin-update-header"><%- title %></h1>
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+    <% if (error.msg !== "Invalid value") { %> <!-- ✅ Skip generic messages --> 
+     <li><%= error.msg %></li>
+     <% } %>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <div id="admin-delete-form">
+    <p id="admin-delete-message"><em>Confirm Deletion - The delete is permanent</em></p>
+    <form id="admin-deleteForm" action="/account/delete" method="post">
+        <label for="account_firstname">First name</label>
+        <input type="text" id="account_firstname" name="account_firstname" value="<%= locals.account_firstname %>" readonly>
+        <label for="account_lastname">Last name</label>
+        <input type="text" id="account_lastname" name="account_lastname" value="<%= locals.account_lastname %>" readonly>
+        <label for="account_email">Email</label>
+        <input type="email" id="account_email" name="account_email" value="<%= locals.account_email %>" readonly>
+        <label for="account_type">Account Type</label>
+        <input type="text" id="account_type" name="account_type" value="<%= locals.account_type %>" readonly>
+        <input type="hidden" name="account_id"
+        <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+        <% } %>>
+        <input type="submit" value="Delete Account">
+    </form>
+</div>
