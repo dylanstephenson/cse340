@@ -47,6 +47,8 @@ router.post(
 
 router.post(
     '/admin-update',
+    regValidate.updateAccountRules(),
+    regValidate.checkAdminUpdateData,
     utilities.handleErrors(accController.adminUpdateAccount)
 )
 

@@ -181,7 +181,7 @@ validate.checkLoginData = async (req, res, next) => {
       let nav = await utilities.getNav()
       res.render("account/update", {
         errors,
-        title: "Login",
+        title: "Update Account",
         nav,
         account_firstname,
         account_lastname,
@@ -200,9 +200,28 @@ validate.checkLoginData = async (req, res, next) => {
       let nav = await utilities.getNav()
       res.render("account/update", {
         errors,
-        title: "Login",
+        title: "Update Account",
         nav,
         account_password,
+      })
+      return
+    }
+    next()
+  }
+
+  validate.checkAdminUpdateData = async (req, res, next) => {
+    const { account_firstname, account_lastname, account_email } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      let nav = await utilities.getNav()
+      res.render("account/admin-update", {
+        errors,
+        title: "Update Account",
+        nav,
+        account_firstname,
+        account_lastname,
+        account_email,
       })
       return
     }
